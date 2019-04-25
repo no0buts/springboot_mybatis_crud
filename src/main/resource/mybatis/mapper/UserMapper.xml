@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xx55xx.mapper.UserMapper" >
+    <resultMap id="UserMap" type="com.xx55xx.entity.User" >
+        <id column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="user_age" property="userAge" jdbcType="VARCHAR" />
+        <result column="user_gender" property="userGender" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        user_id, user_name, user_age, user_gender
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="UserMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from user
+        where user_id = #{userId}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from user
+        where user_id = #{userId}
+    </delete>
+
+    <insert id="insert" parameterType="com.xx55xx.entity.User" >
+        insert into user (user_id, user_name, user_age,user_gender)
+        values (#{userId}, #{userName}, #{userAge},#{userGender})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.xx55xx.entity.User" >
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="userId != null" >
+                user_id,
+            </if>
+            <if test="userName != null" >
+                user_name,
+            </if>
+            <if test="userAge != null" >
+                user_age,
+            </if>
+            <if test="userGender != null" >
+                user_gender,
+            </if>
+        </trim>
+
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="userId != null" >
+                #{userId},
+            </if>
+            <if test="userName != null" >
+                #{userName},
+            </if>
+            <if test="userAge != null" >
+                #{userAge},
+            </if>
+            <if test="userGender != null" >
+                #{userGender},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.xx55xx.entity.User" >
+        update user
+        <set >
+            <if test="userName != null" >
+                user_name = #{userName},
+            </if>
+            <if test="userAge != null" >
+                user_age = #{userAge},
+            </if>
+            <if test="age != null" >
+                user_gender = #{userGender},
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.xx55xx.entity.User" >
+        update user
+          set user_name = #{userName},
+            user_age = #{userAge},
+            user_gender = #{userGender}
+        where user_id = #{userId}
+    </update>
+</mapper>

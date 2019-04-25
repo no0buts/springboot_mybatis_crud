@@ -1,0 +1,22 @@
+
+#端口
+server:
+  port: 8080
+
+# mysql 的数据库配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=utf-8&useSSL=false&allowMultiQueries=true&serverTimezone=UTC
+    username: root
+    password: 123456
+
+
+# mybatis plus
+mybatis:
+  typeAliasesPackage: cn.xx55xx.entity
+  mapperLocations:
+    classpath:/mybatis/mapper/*Mapper.xml #在resource目录下的写法
+
+# 日志 启动信息去掉不需要的CONDITIONS EVALUATION REPORT
+logging.level.org.springframework.boot.autoconfigure: ERROR
